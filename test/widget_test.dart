@@ -6,12 +6,12 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:quizz_app/main.dart';
+import 'package:quizz_app/quizz_app.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const QuizApp());
+    await tester.pumpWidget(const QuizzApp());
 
     // Verify that our app shows the title.
     expect(find.text('Quizz App'), findsOneWidget);
