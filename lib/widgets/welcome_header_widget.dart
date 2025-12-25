@@ -3,14 +3,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:quizz_app/gen/assets.gen.dart';
 import 'package:quizz_app/widgets/header_clipper_widget.dart';
 
-class WelcomeHeader extends StatelessWidget {
-  const WelcomeHeader({super.key});
+class WelcomeHeaderWidget extends StatelessWidget {
+  const WelcomeHeaderWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
     return ClipPath(
-      clipper: HeaderClipper(),
+      clipper: HeaderClipperWidget(),
       child: Container(
         width: double.infinity,
         height: size.height * 0.5,

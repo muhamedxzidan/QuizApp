@@ -11,7 +11,7 @@ import 'package:quizz_app/quizz_app.dart';
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const QuizzApp());
+    await tester.pumpWidget(const QuizzAppWidget());
 
     // Verify that our app shows the title.
     expect(find.text('Quizz App'), findsOneWidget);
