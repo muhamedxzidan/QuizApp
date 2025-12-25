@@ -22,7 +22,9 @@ class WelcomeScreenWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   const WelcomeContentWidget(),
+
                   CustomButtonWidget(
+                    title: 'Get Started',
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -33,6 +35,38 @@ class WelcomeScreenWidget extends StatelessWidget {
                         ),
                       );
                     },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFFFFFFF),
+                      foregroundColor: const Color(0xFF4E078D),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      elevation: 0,
+                    ),
+                  ),
+
+                  CustomButtonWidget(
+                    onPressed: () {
+                      showAboutDialog(
+                        context: context,
+                        children: [
+                          Text('Version 1.0.0'),
+                          Text('Author: Mohamed Zidan'),
+                          Text('Email: mohamed.zidan@gmail.com'),
+                          Text('Phone: +201012345678'),
+                          Text('Copyright © 2025'),
+                        ],
+                      );
+                    },
+                    title: 'About',
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFFFFFFF),
+                      foregroundColor: const Color(0xFF4E078D),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      elevation: 0,
+                    ),
                   ),
                 ],
               ),
