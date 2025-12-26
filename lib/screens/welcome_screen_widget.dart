@@ -49,6 +49,9 @@ class WelcomeScreenWidget extends StatelessWidget {
                     onPressed: () {
                       showAboutDialog(
                         context: context,
+                        applicationName: 'Quizz App',
+                        applicationVersion: '1.0.0',
+                        applicationIcon: const Icon(Icons.gamepad),
                         children: [
                           Text('Version 1.0.0'),
                           Text('Author: Mohamed Zidan'),
