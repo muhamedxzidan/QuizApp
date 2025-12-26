@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quizz_app/widgets/star_item_widget.dart';
 
 class StarRatingWidget extends StatelessWidget {
   final int stars;
@@ -20,32 +21,35 @@ class StarRatingWidget extends StatelessWidget {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          Positioned(left: 15, bottom: 0, child: _buildStar(stars >= 1)),
-          Positioned(top: 0, child: _buildStar(stars >= 2, isMain: true)),
-          Positioned(right: 15, bottom: 0, child: _buildStar(stars >= 3)),
+          Positioned(
+            left: 15,
+            bottom: 0,
+            child: StarItemWidget(
+              isFilled: stars >= 1,
+              isLocked: isLocked,
+              baseSize: starSize,
+            ),
+          ),
+          Positioned(
+            top: 0,
+            child: StarItemWidget(
+              isFilled: stars >= 2,
+              isLocked: isLocked,
+              isMain: true,
+              baseSize: starSize,
+            ),
+          ),
+          Positioned(
+            right: 15,
+            bottom: 0,
+            child: StarItemWidget(
+              isFilled: stars >= 3,
+              isLocked: isLocked,
+              baseSize: starSize,
+            ),
+          ),
         ],
       ),
-    );
-  }
-
-  Widget _buildStar(bool isFilled, {bool isMain = false}) {
-    final Color starColor = isLocked
-        ? const Color(0x80311B92)
-        : (isFilled ? const Color(0xFFF7BD03) : const Color(0x33311B92));
-
-    return Icon(
-      isFilled && !isLocked ? Icons.star : Icons.star_border,
-      color: starColor,
-      size: isMain ? starSize + 4 : starSize,
-      shadows: isLocked
-          ? null
-          : [
-              const Shadow(
-                color: Color(0x40000000),
-                blurRadius: 4,
-                offset: Offset(0, 2),
-              ),
-            ],
     );
   }
 }

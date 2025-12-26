@@ -53,23 +53,24 @@ class HomeScreenWidget extends StatelessWidget {
                 : null;
 
             return LevelRowWidget(
-              leftLevel: _buildLevel(left),
+              leftLevel: LevelHexagonWidget(
+                level: 'Level \n ${left.id}',
+                stars: left.stars,
+                isLocked: left.isLocked,
+                gradientColors: left.gradientColors,
+              ),
               rightLevel: right != null
-                  ? _buildLevel(right)
+                  ? LevelHexagonWidget(
+                      level: 'Level \n ${right.id}',
+                      stars: right.stars,
+                      isLocked: right.isLocked,
+                      gradientColors: right.gradientColors,
+                    )
                   : const SizedBox(width: 100),
             );
           }),
         ),
       ),
-    );
-  }
-
-  Widget _buildLevel(LevelModel model) {
-    return LevelHexagonWidget(
-      level: 'Level \n ${model.id}',
-      stars: model.stars,
-      isLocked: model.isLocked,
-      gradientColors: model.gradientColors,
     );
   }
 }
