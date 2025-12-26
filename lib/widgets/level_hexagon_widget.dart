@@ -7,32 +7,41 @@ class LevelHexagonWidget extends StatelessWidget {
   final String level;
   final bool isLocked;
   final int stars;
+  final List<Color>? gradientColors;
 
   const LevelHexagonWidget({
     super.key,
     required this.level,
     this.isLocked = false,
     this.stars = 0,
+    this.gradientColors,
   });
 
   @override
   Widget build(BuildContext context) {
+    final List<Color> activeGradient =
+        gradientColors ?? const [Color(0xFF8127FF), Color(0xFFBD00FF)];
+    final List<Color> displayGradient = isLocked
+        ? [const Color(0xCC3F0071), const Color(0xCC240046)]
+        : activeGradient;
+    final Color shadowColor = isLocked
+        ? const Color(0x4D000000)
+        : displayGradient.last.withAlpha(128);
+
     return Stack(
       alignment: Alignment.center,
       clipBehavior: Clip.none,
       children: [
-        if (!isLocked)
-          Opacity(
-            opacity: 0.5,
+        Positioned(
+          bottom: -4,
+          child: Opacity(
+            opacity: 0.6,
             child: ClipPath(
               clipper: PentagonClipperWidget(),
-              child: Container(
-                width: 106,
-                height: 106,
-                color: const Color(0xFFBD00FF),
-              ),
+              child: Container(width: 106, height: 106, color: shadowColor),
             ),
           ),
+        ),
         ClipPath(
           clipper: PentagonClipperWidget(),
           child: Container(
@@ -40,103 +49,106 @@ class LevelHexagonWidget extends StatelessWidget {
             height: 100,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: isLocked
-                    ? [const Color(0xFFBDBDBD), const Color(0xFF757575)]
-                    : [const Color(0xFF8127FF), const Color(0xFFBD00FF)],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: displayGradient,
               ),
             ),
             child: Stack(
               children: [
-                if (!isLocked) ...[
-                  Positioned(
-                    top: -10,
-                    right: -10,
-                    child: Container(
-                      width: 50,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: const Color(0x26FFFFFF),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 10,
-                    left: 5,
-                    child: Container(
-                      width: 30,
-                      height: 30,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: const Color(0x1AFFFFFF),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 20,
-                    left: -5,
-                    child: Container(
-                      width: 20,
-                      height: 20,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: const Color(0x1AFFFFFF),
-                      ),
-                    ),
-                  ),
-                ],
+                ..._buildDecorativeBubbles(isLocked),
                 Center(
-                  child: isLocked
-                      ? const Icon(
-                          Icons.lock,
-                          color: Color(0xFFFFFFFF),
-                          size: 30,
-                        )
-                      : Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              level.split('\n').first.trim(),
-                              style: const TextStyle(
-                                color: Color(0xFFFFFFFF),
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                shadows: [
-                                  Shadow(
-                                    color: Color(0x42000000),
-                                    blurRadius: 4,
-                                    offset: Offset(0, 2),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Text(
-                              level.split('\n').last.trim(),
-                              style: const TextStyle(
-                                color: Color(0xFFFFFFFF),
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                                shadows: [
-                                  Shadow(
-                                    color: Color(0x42000000),
-                                    blurRadius: 4,
-                                    offset: Offset(0, 2),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
+                  child: Opacity(
+                    opacity: isLocked ? 0.4 : 1.0,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          level.split('\n').first.trim(),
+                          style: const TextStyle(
+                            color: Color(0xFFFFFFFF),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 1.2,
+                          ),
                         ),
+                        Text(
+                          level.split('\n').last.trim(),
+                          style: const TextStyle(
+                            color: Color(0xFFFFFFFF),
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            shadows: [
+                              Shadow(
+                                color: Color(0x40000000),
+                                blurRadius: 4,
+                                offset: Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
+                if (isLocked)
+                  const Center(
+                    child: Icon(
+                      Icons.lock,
+                      color: Color(0xFFF7BD03),
+                      size: 36,
+                      shadows: [
+                        Shadow(
+                          color: Color(0x40000000),
+                          blurRadius: 8,
+                          offset: Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                  ),
               ],
             ),
           ),
         ),
-        if (!isLocked)
-          Positioned(top: -30, child: StarRatingWidget(stars: stars)),
+        Positioned(
+          top: -28,
+          child: StarRatingWidget(stars: stars, isLocked: isLocked),
+        ),
       ],
+    );
+  }
+
+  List<Widget> _buildDecorativeBubbles(bool isLocked) {
+    if (isLocked) return [];
+    return [
+      Positioned(
+        top: -5,
+        right: -5,
+        child: _bubble(40, const Color(0x26FFFFFF)),
+      ),
+      Positioned(
+        bottom: 5,
+        left: 10,
+        child: _bubble(25, const Color(0x1EFFFFFF)),
+      ),
+      Positioned(
+        top: 25,
+        left: -10,
+        child: _bubble(30, const Color(0x1AFFFFFF)),
+      ),
+      Positioned(
+        bottom: 20,
+        right: 15,
+        child: _bubble(15, const Color(0x14FFFFFF)),
+      ),
+    ];
+  }
+
+  Widget _bubble(double size, Color color) {
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(shape: BoxShape.circle, color: color),
     );
   }
 }

@@ -13,33 +13,50 @@ class HomeScreenWidget extends StatelessWidget {
       appBar: const CustomAppbarWidget(title: 'Levels'),
       body: SingleChildScrollView(
         child: Column(
-          children: const [
-            SizedBox(height: 20),
-            LevelRowWidget(
-              leftLevel: LevelHexagonWidget(level: 'Level \n 1', stars: 3),
-              rightLevel: LevelHexagonWidget(level: 'Level \n 2', stars: 2),
-            ),
-            LevelRowWidget(
-              leftLevel: LevelHexagonWidget(level: 'Level \n 3', stars: 1),
-              rightLevel: LevelHexagonWidget(level: 'Level \n 4', stars: 0),
-            ),
+          children: [
+            const SizedBox(height: 20),
             LevelRowWidget(
               leftLevel: LevelHexagonWidget(
-                level: 'Level \n 5',
-                isLocked: true,
+                level: 'Level \n 01',
+                stars: 3,
+                gradientColors: [Color(0xFF8127FF), Color(0xFFBD00FF)],
               ),
               rightLevel: LevelHexagonWidget(
-                level: 'Level \n 6',
-                isLocked: true,
+                level: 'Level \n 02',
+                stars: 3, // Changed to 3 stars as per image logic often
+                gradientColors: [Color(0xFF3D5AFE), Color(0xFF00E5FF)],
               ),
             ),
             LevelRowWidget(
               leftLevel: LevelHexagonWidget(
-                level: 'Level \n 7',
+                level: 'Level \n 03',
+                stars: 3,
+                gradientColors: [Color(0xFFFF9100), Color(0xFFFFD600)],
+              ),
+              rightLevel: LevelHexagonWidget(
+                level: 'Level \n 04',
+                stars: 2,
+                gradientColors: [Color(0xFF00BFA5), Color(0xFF1DE9B6)],
+              ),
+            ),
+            LevelRowWidget(
+              leftLevel: LevelHexagonWidget(
+                level: 'Level \n 05',
+                stars: 0,
+                gradientColors: [Color(0xFFFF4081), Color(0xFFF50057)],
+              ),
+              rightLevel: LevelHexagonWidget(
+                level: 'Level \n 06',
+                isLocked: true,
+              ),
+            ),
+            LevelRowWidget(
+              leftLevel: LevelHexagonWidget(
+                level: 'Level \n 07',
                 isLocked: true,
               ),
               rightLevel: LevelHexagonWidget(
-                level: 'Level \n 8',
+                level: 'Level \n 08',
                 isLocked: true,
               ),
             ),
