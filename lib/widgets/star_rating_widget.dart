@@ -30,10 +30,8 @@ class StarRatingWidget extends StatelessWidget {
 
   Widget _buildStar(bool isFilled, {bool isMain = false}) {
     final Color starColor = isLocked
-        ? const Color(0xFF311B92).withOpacity(0.5)
-        : (isFilled
-              ? const Color(0xFFF7BD03)
-              : const Color(0xFF311B92).withOpacity(0.2));
+        ? const Color(0x80311B92)
+        : (isFilled ? const Color(0xFFF7BD03) : const Color(0x33311B92));
 
     return Icon(
       isFilled && !isLocked ? Icons.star : Icons.star_border,

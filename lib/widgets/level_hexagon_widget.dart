@@ -26,7 +26,7 @@ class LevelHexagonWidget extends StatelessWidget {
         : activeGradient;
     final Color shadowColor = isLocked
         ? const Color(0x4D000000)
-        : displayGradient.last.withAlpha(128);
+        : displayGradient.last.withValues(alpha: 0.5);
 
     return Stack(
       alignment: Alignment.center,
