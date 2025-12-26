@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quizz_app/widgets/decorative_bubble_widget.dart';
 import 'package:quizz_app/widgets/star_rating_widget.dart';
 
 import 'pentagon_clipper_widget.dart';
@@ -56,7 +57,40 @@ class LevelHexagonWidget extends StatelessWidget {
             ),
             child: Stack(
               children: [
-                ..._buildDecorativeBubbles(isLocked),
+                if (!isLocked) ...[
+                  const Positioned(
+                    top: -5,
+                    right: -5,
+                    child: DecorativeBubbleWidget(
+                      size: 40,
+                      color: Color(0x26FFFFFF),
+                    ),
+                  ),
+                  const Positioned(
+                    bottom: 5,
+                    left: 10,
+                    child: DecorativeBubbleWidget(
+                      size: 25,
+                      color: Color(0x1EFFFFFF),
+                    ),
+                  ),
+                  const Positioned(
+                    top: 25,
+                    left: -10,
+                    child: DecorativeBubbleWidget(
+                      size: 30,
+                      color: Color(0x1AFFFFFF),
+                    ),
+                  ),
+                  const Positioned(
+                    bottom: 20,
+                    right: 15,
+                    child: DecorativeBubbleWidget(
+                      size: 15,
+                      color: Color(0x14FFFFFF),
+                    ),
+                  ),
+                ],
                 Center(
                   child: Opacity(
                     opacity: isLocked ? 0.4 : 1.0,
@@ -115,40 +149,6 @@ class LevelHexagonWidget extends StatelessWidget {
           child: StarRatingWidget(stars: stars, isLocked: isLocked),
         ),
       ],
-    );
-  }
-
-  List<Widget> _buildDecorativeBubbles(bool isLocked) {
-    if (isLocked) return [];
-    return [
-      Positioned(
-        top: -5,
-        right: -5,
-        child: _bubble(40, const Color(0x26FFFFFF)),
-      ),
-      Positioned(
-        bottom: 5,
-        left: 10,
-        child: _bubble(25, const Color(0x1EFFFFFF)),
-      ),
-      Positioned(
-        top: 25,
-        left: -10,
-        child: _bubble(30, const Color(0x1AFFFFFF)),
-      ),
-      Positioned(
-        bottom: 20,
-        right: 15,
-        child: _bubble(15, const Color(0x14FFFFFF)),
-      ),
-    ];
-  }
-
-  Widget _bubble(double size, Color color) {
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(shape: BoxShape.circle, color: color),
     );
   }
 }
